@@ -1,0 +1,45 @@
+{
+    "name": "tekheader",
+    "displayName": "TekHeader",
+    "description": "Add the Epitech Header to your files.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.97.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "tekheader.addHeader",
+                "title": "TekHeader: Add Epitech Header"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "tekheader.addHeader",
+                "key": "ctrl+alt+h",
+                "mac": "cmd+alt+h"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "lint": "eslint src && prettier --write ."
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.97.0",
+        "@typescript-eslint/eslint-plugin": "^8.22.0",
+        "@typescript-eslint/parser": "^8.22.0",
+        "eslint": "^9.19.0",
+        "prettier": "^3.5.1",
+        "typescript": "^5.7.3"
+    }
+}
