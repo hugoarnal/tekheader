@@ -64,7 +64,7 @@ export async function getCommentSymbols(language: string) {
         },
     );
     if (!picker) {
-        return ct.slash;
+        return undefined;
     }
     picker = picker.toLowerCase();
     if (picker.includes("slash")) {
@@ -79,5 +79,5 @@ export async function getCommentSymbols(language: string) {
     if (picker.includes("semicolon")) {
         return ct.semicolon;
     }
-    return ct.slash;
+    return undefined;
 }

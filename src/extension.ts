@@ -7,7 +7,6 @@ export function activate(context: vscode.ExtensionContext) {
         "tekheader.addHeader",
         async () => {
             let editor = vscode.window.activeTextEditor;
-
             if (!editor) {
                 return;
             }
@@ -15,6 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
             let language = editor.document.languageId;
 
             const commentSymbol = await getCommentSymbols(language);
+            if (!commentSymbol) {
+                return;
+            }
 
             const year = new Date().getFullYear().toString();
             const folder = vscode.workspace.name;
