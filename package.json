@@ -2,7 +2,8 @@
     "name": "tekheader",
     "displayName": "TekHeader",
     "description": "Add the Epitech Header to your files.",
-    "version": "0.0.1",
+    "version": "1.0.0",
+    "publisher": "hugoarnal",
     "engines": {
         "vscode": "^1.97.0"
     },
