@@ -4,6 +4,7 @@
     "description": "Add the Epitech Header to your files.",
     "version": "1.0.1",
     "publisher": "hugoarnal",
+    "icon": "tekheader.png",
     "repository": {
         "type": "git",
         "url": "https://github.com/hugoarnal/tekheader.git"
