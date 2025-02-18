@@ -2,7 +2,7 @@
     "name": "tekheader",
     "displayName": "TekHeader",
     "description": "Add the Epitech Header to your files.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "publisher": "hugoarnal",
     "icon": "tekheader.png",
     "repository": {
@@ -10,7 +10,7 @@
         "url": "https://github.com/hugoarnal/tekheader.git"
     },
     "engines": {
-        "vscode": "^1.97.0"
+        "vscode": "^1.75.0"
     },
     "categories": [
         "Other"
@@ -33,7 +33,7 @@
         ]
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "npm run lint && npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "lint": "eslint src && prettier --write ."
