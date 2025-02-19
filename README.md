@@ -2,6 +2,8 @@
 
 Add the Epitech Header to your files.
 
+### [VSCode Marketplace Link](https://marketplace.visualstudio.com/items?itemName=hugoarnal.tekheader)
+
 <details>
     <summary>
         Made as a drop-in replacement to <a href="https://marketplace.visualstudio.com/items?itemName=ben.epiheader">ben.epiheader</a>
