@@ -12,9 +12,9 @@ const ct = {
         bottom: "##",
     },
     dash: {
-        top: "--",
+        top: "{-",
         middle: "--",
-        bottom: "--",
+        bottom: "-}",
     },
     semicolon: {
         top: ";;",
