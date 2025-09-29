@@ -1,0 +1,27 @@
+name: Publish extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish_extension:
+    name: Publish extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+     
+      - name: Install
+        run: npm ci
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+        
+      - name: Login to VSCode Marketplace
+        run: echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | vsce login ${{ secrets.PUBLISHER_ID }}
+
+      - name: Publish to VSCode Marketplace
+        run: vsce publish
