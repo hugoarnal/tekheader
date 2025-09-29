@@ -14,14 +14,12 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 20
-     
+
       - name: Install
         run: npm ci
-      - name: Install vsce
-        run: npm install -g @vscode/vsce
-        
+
       - name: Login to VSCode Marketplace
-        run: echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | vsce login ${{ secrets.PUBLISHER_ID }}
+        run: echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | npx @vscode/vsce login ${{ secrets.PUBLISHER_ID }}
 
       - name: Publish to VSCode Marketplace
-        run: vsce publish
+        run: npx @vscode/vsce publish
