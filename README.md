@@ -2,27 +2,9 @@
 
 Add the Epitech Header to your files.
 
+### [Open VSX Marketplace Link (VSCodium)](https://open-vsx.org/extension/hugoarnal/tekheader)
+
 ### [VSCode Marketplace Link](https://marketplace.visualstudio.com/items?itemName=hugoarnal.tekheader)
-
-<details>
-    <summary>
-        Made as a drop-in replacement to <a href="https://marketplace.visualstudio.com/items?itemName=ben.epiheader">ben.epiheader</a>
-    </summary>
-I made this extension because I had a problem, the header was returning the wrong year.
-
-![Epitech Header showing 2024 instead of 2025](https://github.com/user-attachments/assets/dc09775f-290e-43ed-ae46-84e42eac984a)
-
-In the code of ben.epiheader, there was this getYear function:
-
-```js
-return moment().subtract(6, "months").format("YYYY");
-```
-
-which in February 2025 returned `2024`.
-
-Not only that but the extension wasn't updated in years (hopefully Ben graduated successfully from Epitech since :)) but it's not longer open source :(
-
-</details>
 
 # Default keybinds
 
@@ -53,4 +35,5 @@ Tested on [nvm](https://nvm.sh) v18.20.6
 ```sh
 git clone https://github.com/hugoarnal/tekheader.git
 npm install
+npx @vscode/vsce package
 ```
