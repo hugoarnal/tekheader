@@ -112,6 +112,12 @@ export async function getCommentSymbols(language: string) {
         ] as unknown as DefaultComment;
 
         if (picker.includes(symbolType.toLowerCase())) {
+            if (!configSymbols) {
+                // TODO: make this a Yes/No/Don't ask again notification w/automatic save in config
+                vscode.window.showInformationMessage(
+                    "You can always specify the symbols for your language in your settings. See the TekHeader extension README for more information.",
+                );
+            }
             return symbol.dict;
         }
     }
