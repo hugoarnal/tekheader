@@ -35,5 +35,5 @@ Tested on [nvm](https://nvm.sh) v18.20.6
 ```sh
 git clone https://github.com/hugoarnal/tekheader.git
 npm install
-npx @vscode/vsce package
+npm run package
 ```
