@@ -59,18 +59,22 @@ export async function getCommentSymbols(language: string) {
         }
     }
 
+    let pickerItems = [];
+
+    for (const symbolType of Object.keys(symbols)) {
+        const symbol = symbols[
+            symbolType as keyof Object
+        ] as unknown as DefaultComment;
+        const upperCaseType =
+            symbolType.charAt(0).toUpperCase() + symbolType.slice(1);
+
+        pickerItems.push(`${upperCaseType} (${symbol.toString()})`);
+    }
+
     // If language isn't in defined language list
-    let picker = await vscode.window.showQuickPick(
-        [
-            `Slash (C, JS, TS...) (${symbols.slash.toString()})`,
-            `Hash (Dockerfile, Makefile, Python...) (${symbols.hash.toString()})`,
-            `Dash (Haskell) (${symbols.dash.toString()})`,
-            `Semicolon (ini, lua) (${symbols.semicolon.toString()})`,
-        ],
-        {
-            title: "Couldn't find the language in the defined languages list. Please select your comment type below",
-        },
-    );
+    let picker = await vscode.window.showQuickPick(pickerItems, {
+        title: `Impossible to find the symbols for ${language}. Please select your comment type below.`,
+    });
     if (!picker) {
         return undefined;
     }
