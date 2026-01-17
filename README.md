@@ -6,11 +6,23 @@ Add the Epitech Header to your files.
 
 ### [VSCode Marketplace Link](https://marketplace.visualstudio.com/items?itemName=hugoarnal.tekheader)
 
-# Default keybinds
+## Default keybinds
 
 `tekheader.addHeader`: `ctrl+alt+h` (Linux & Windows), `cmd+alt+h` (Mac)
 
-# Supported languages
+## Configuration
+
+You can specify symbols for specific languages in your `User.json` file (found in `Open User Settings (JSON)`):
+
+```json
+{
+    "tekheader.symbols": {
+        "plaintext": "dash"
+    }
+}
+```
+
+## Supported languages
 
 **Slash comments (/\*, \*\*, \*/):**
 C, C++, CSS, Go, Java, JavaScript, TypeScript, Rust
@@ -28,7 +40,7 @@ Ini, Lua
 
 You will be prompted with the closest comment choice and it's up to you to choose.
 
-# Local dev installation
+## Local dev installation
 
 Tested on [nvm](https://nvm.sh) v18.20.6
 
