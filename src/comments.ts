@@ -27,6 +27,10 @@ class DefaultComment {
     }
 }
 
+interface ConfigSymbols {
+    [language: string]: string;
+}
+
 export async function getCommentSymbols(language: string) {
     const symbols = {
         slash: new DefaultComment("/*", "**", "*/", [
@@ -48,6 +52,21 @@ export async function getCommentSymbols(language: string) {
         dash: new DefaultComment("{-", "--", "-}", ["haskell"]),
         semicolon: new DefaultComment(";;", ";;", ";;", ["ini", "lua"]),
     };
+
+    // try finding the symbol in config first
+    const config = vscode.workspace.getConfiguration("tekheader");
+    const configSymbols: ConfigSymbols | undefined = config.get("symbols");
+
+    if (configSymbols && language in configSymbols) {
+        const symbolType = configSymbols[language];
+        const symbol = symbols[
+            symbolType as keyof Object
+        ] as unknown as DefaultComment;
+
+        if (symbol) {
+            return symbol.dict;
+        }
+    }
 
     for (const symbolType of Object.keys(symbols)) {
         const symbol = symbols[
