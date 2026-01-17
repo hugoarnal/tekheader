@@ -68,6 +68,12 @@ export async function getCommentSymbols(language: string) {
         }
     }
 
+    if (configSymbols && language in configSymbols) {
+        vscode.window.showWarningMessage(
+            `The specified symbol for ${language} is incorrect.`,
+        );
+    }
+
     for (const symbolType of Object.keys(symbols)) {
         const symbol = symbols[
             symbolType as keyof Object
