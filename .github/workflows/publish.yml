@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish_extension:
-    name: Publish extension
+  publish_extension_open_vsx:
+    name: Publish extension to Open VSX
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js 20
         uses: actions/setup-node@v5
         with:
@@ -18,12 +18,26 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Publish to Open VSX Registry
+      - name: Publish to Open VSX
         uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
 
-      - name: Publish to Visual Studio Marketplace
+  publish_extension_vs_marketplace:
+    name: Publish extension to VS Marketplace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+
+      - name: Install
+        run: npm ci
+
+      - name: Publish to VS Marketplace
         uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db
         with:
           pat: ${{ secrets.VSCODE_PAT }}
