@@ -31,59 +31,28 @@ interface ConfigSymbols {
     [language: string]: string;
 }
 
-export async function getCommentSymbols(language: string) {
-    const symbols = {
-        slash: new DefaultComment("/*", "**", "*/", [
-            "c",
-            "cpp",
-            "css",
-            "go",
-            "java",
-            "javascript",
-            "typescript",
-            "rust",
-        ]),
-        hash: new DefaultComment("##", "##", "##", [
-            "dockerfile",
-            "makefile",
-            "python",
-            "shellscript",
-        ]),
-        dash: new DefaultComment("{-", "--", "-}", ["haskell"]),
-        semicolon: new DefaultComment(";;", ";;", ";;", ["ini", "lua"]),
-    };
+const symbols = {
+    slash: new DefaultComment("/*", "**", "*/", [
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "java",
+        "javascript",
+        "typescript",
+        "rust",
+    ]),
+    hash: new DefaultComment("##", "##", "##", [
+        "dockerfile",
+        "makefile",
+        "python",
+        "shellscript",
+    ]),
+    dash: new DefaultComment("{-", "--", "-}", ["haskell"]),
+    semicolon: new DefaultComment(";;", ";;", ";;", ["ini", "lua"]),
+};
 
-    // try finding the symbol in config first
-    const config = vscode.workspace.getConfiguration("tekheader");
-    const configSymbols: ConfigSymbols | undefined = config.get("symbols");
-
-    if (configSymbols && language in configSymbols) {
-        const symbolType = configSymbols[language];
-        const symbol = symbols[
-            symbolType as keyof Object
-        ] as unknown as DefaultComment;
-
-        if (symbol) {
-            return symbol.dict;
-        }
-    }
-
-    if (configSymbols && language in configSymbols) {
-        vscode.window.showWarningMessage(
-            `The specified symbol for ${language} is incorrect.`,
-        );
-    }
-
-    for (const symbolType of Object.keys(symbols)) {
-        const symbol = symbols[
-            symbolType as keyof Object
-        ] as unknown as DefaultComment;
-
-        if (symbol.languages.includes(language)) {
-            return symbol.dict;
-        }
-    }
-
+async function showPicker(language: string) {
     let pickerItems = [];
 
     for (const symbolType of Object.keys(symbols)) {
@@ -96,16 +65,19 @@ export async function getCommentSymbols(language: string) {
         pickerItems.push(`${upperCaseType} (${symbol.toString()})`);
     }
 
-    // If language isn't in defined language list
-    let picker = await vscode.window.showQuickPick(pickerItems, {
+    const picker = await vscode.window.showQuickPick(pickerItems, {
         title: `Impossible to find the symbols for ${language}. Please select your comment type below.`,
     });
     if (!picker) {
         return undefined;
     }
+    return picker.toLowerCase();
+}
 
-    picker = picker.toLowerCase();
-
+function findFromPicker(
+    picker: string,
+    configSymbols: ConfigSymbols | undefined,
+) {
     for (const symbolType of Object.keys(symbols)) {
         const symbol = symbols[
             symbolType as keyof Object
@@ -122,4 +94,47 @@ export async function getCommentSymbols(language: string) {
         }
     }
     return undefined;
+}
+
+function getFromConfig(language: string) {
+    const config = vscode.workspace.getConfiguration("tekheader");
+    const configSymbols: ConfigSymbols | undefined = config.get("symbols");
+
+    if (configSymbols && language in configSymbols) {
+        const symbolType = configSymbols[language];
+        const symbol = symbols[
+            symbolType as keyof Object
+        ] as unknown as DefaultComment;
+
+        if (symbol) {
+            return symbol.dict;
+        }
+    }
+    return undefined;
+}
+
+export async function getCommentSymbols(language: string) {
+    const configSymbols = getFromConfig(language);
+    if (!configSymbols) {
+        vscode.window.showWarningMessage(
+            `The specified symbol for ${language} is incorrect.`,
+        );
+    }
+
+    for (const symbolType of Object.keys(symbols)) {
+        const symbol = symbols[
+            symbolType as keyof Object
+        ] as unknown as DefaultComment;
+
+        if (symbol.languages.includes(language)) {
+            return symbol.dict;
+        }
+    }
+
+    let picker = await showPicker(language);
+    if (!picker) {
+        return undefined;
+    }
+
+    return findFromPicker(picker, configSymbols);
 }
