@@ -2,7 +2,7 @@
     "name": "tekheader",
     "displayName": "TekHeader",
     "description": "Add the Epitech Header to your files.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "publisher": "hugoarnal",
     "icon": "tekheader.png",
     "repository": {
