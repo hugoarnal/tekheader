@@ -1,0 +1,5 @@
+.github
+.prettier*
+.vscode
+tsconfig.json
+eslint.config.mjs
