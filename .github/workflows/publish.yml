@@ -1,6 +1,9 @@
 name: Publish extension
 
 on:
+  push:
+    tags:
+      - "*" # TODO: match x.x.x
   workflow_dispatch:
 
 jobs:
